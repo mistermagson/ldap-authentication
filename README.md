@@ -19,3 +19,5 @@ $ node ldap.js
 
 LDAP Server Online
 https://login-using-ldap.mybluemix.net/
+
+https://www.zflexldapadministrator.com/index.php/blog/82-free-online-ldap
