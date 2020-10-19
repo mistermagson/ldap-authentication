@@ -5,14 +5,14 @@ A simple node.js lib to authenticate against an LDAP server.
 ## Pre-Requisite
 
 ```sh 
-$ yarn add ldap-authentication
+$ yarn add activedirectory
 ```
 
 
 ## Usage
 
 ```sh 
-$ node ldap.js
+$ node trf3ad.js
 ```
 
 ## Resources

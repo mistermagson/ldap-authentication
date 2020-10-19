@@ -21,6 +21,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+*.ldif
+*.lcf
+
 # Android/IntelliJ
 #
 build/
