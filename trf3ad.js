@@ -1,5 +1,5 @@
 let config = {
-    url: 'ldap://xxxx', // Endereço do Servidor LDAP / AD
+    url: 'ldap://10.70.1.29', // Endereço do Servidor LDAP / AD
     baseDN: 'dc=trf3,dc=jus,dc=br',
 }
 
@@ -7,9 +7,8 @@ let ActiveDirectory = require('activedirectory');
 
 let ad = new ActiveDirectory(config);
 
-let username = 'xxxx@trf3.jus.br'; // usar usuario@trf3.jus.br
-let password = 'xxxx'; //senha
-
+let username = 'xxx'; // usar usuario@trf3.jus.br
+let password = 'xxx'; //senha
 
 ad.authenticate(username, password, function (err, auth) {
     if (err) {
@@ -23,5 +22,3 @@ ad.authenticate(username, password, function (err, auth) {
         console.log('Authentication failed!');
     }
 });
-
-
