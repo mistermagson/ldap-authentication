@@ -5,7 +5,6 @@ var Promise  = require('promise');
 
 const dotenv = require('dotenv');
 dotenv.config();
-const secret = process.env.TOKEN;
 
 let config = {
     url: process.env.LDAP_SERVER, // Endereço do Servidor LDAP / AD
@@ -47,9 +46,30 @@ app.post('/authenticate', function (req, res) {
     }
 });
 
+app.post('/verify', function (req, res) {
+    var token = req.body.token;
+    if (token) {
+        try {
+            var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
+
+            if (decoded.exp <= parseInt(moment().format("X"))) {
+                res.status(400).send({ error: 'Access token has expired'});
+            } else {
+                res.json(decoded);
+            }
+        } catch (err) {
+            res.status(500).send({ error: 'Access token could not be decoded'});
+        }
+    } else {
+        res.status(400).send({ error: 'Access token is missing'});
+    }
+});
+
+
 function generateAccessToken(username) {
     return jwt.sign({username} , process.env.TOKEN, { expiresIn: 1800 });
 }
+
 
 var port = (process.env.PORT || 3000);
 app.listen(port, function() {
