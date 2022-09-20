@@ -10,6 +10,10 @@ A simple node.js lib to authenticate against an LDAP server.
 ```sh 
 $ npm install
 ```
+```
+renomear o arquivo 
+    .env.example p/ .env
+```
 
 ## USAGE
 
