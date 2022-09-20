@@ -5,7 +5,7 @@ A simple node.js lib to authenticate against an LDAP server.
 ## Pre-Requisite
 
 - Node instalado
-- Clonar este ``` git clone ```
+- Clonar este repo ``` git clone https://github.com/mistermagson/ldap-authentication.git ```
 
 ```sh 
 $ npm install
