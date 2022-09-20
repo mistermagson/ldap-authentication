@@ -1,7 +1,7 @@
-var bodyParser = require('body-parser');
-var jwt = require('jsonwebtoken');
-var moment = require('moment');
-var Promise  = require('promise');
+let bodyParser = require('body-parser');
+let jwt = require('jsonwebtoken');
+let moment = require('moment');
+//let Promise  = require('promise');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -46,16 +46,17 @@ app.post('/authenticate', function (req, res) {
     }
 });
 
+//valida enviado o token no Body
+//
 app.post('/verify', function (req, res) {
-    var token = req.body.token;
+    let token = req.body.token;
     if (token) {
         try {
-            var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
-
+            let decoded = jwt.decode(token, app.get(process.env.TOKEN));
             if (decoded.exp <= parseInt(moment().format("X"))) {
-                res.status(400).send({ error: 'Access token has expired'});
+                return res.status(400).send({ error: 'Access token has expired'});
             } else {
-                res.json(decoded);
+                res.json(decoded.username);
             }
         } catch (err) {
             res.status(500).send({ error: 'Access token could not be decoded'});
@@ -63,15 +64,42 @@ app.post('/verify', function (req, res) {
     } else {
         res.status(400).send({ error: 'Access token is missing'});
     }
+
 });
 
+// valida a rquisicao com BEARER Token
+app.get('/rota', authenticateToken, (req, res) => {
+    res.status(200).send({success:'Rota autenticada'});
+})
 
 function generateAccessToken(username) {
     return jwt.sign({username} , process.env.TOKEN, { expiresIn: 1800 });
 }
 
+/*function getUserDetails(req, res, next) {
+    return ad.findUser(req.body.username);
+}*/
 
-var port = (process.env.PORT || 3000);
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    //console.log(req)
+
+    if (token == null) return res.sendStatus(401)
+
+    jwt.verify(token, process.env.TOKEN, (err, user) => {
+
+        console.log(err)
+
+        if (err) return res.sendStatus(403)
+
+        req.user = user
+        next()
+    })
+}
+
+let port = (process.env.PORT || 3000);
 app.listen(port, function() {
     console.log('Listening on port: ' + port);
 /*

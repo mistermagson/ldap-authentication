@@ -4,22 +4,37 @@ A simple node.js lib to authenticate against an LDAP server.
 
 ## Pre-Requisite
 
-- Must chage the **config** part at **trf3ad.js**
+- Node instalado
+- Clonar este ``` git clone ```
 
 ```sh 
-$ yarn add activedirectory
+$ npm install
 ```
 
+## USAGE
 
-## Usage
-
+### Iniciar o serviço
 ```sh 
-$ node trf3ad.js
+$ node index.js
 ```
 
-## Resources
+### Obter um Token
+Enviar requisição POST
+```
+POST http://localhost:3000/authenticate
+```
 
-LDAP Server Online
-https://login-using-ldap.mybluemix.net/
+```
+Body
+{
+"username": "xxxx@trf3.jus.br",
+"password":"xxxxxxxx"   
+}
+```
 
-https://www.zflexldapadministrator.com/index.php/blog/82-free-online-ldap
+### Validar o Token
+
+```
+GET http://localhost:3000/verify
+Authorization: Bearer JWT_ACCESS_TOKEN
+```
