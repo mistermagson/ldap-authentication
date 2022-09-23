@@ -30,6 +30,16 @@
     "ldapjs" ">= 0.7.1"
     "underscore" ">= 1.4.3"
 
+"activedirectory2@^2.1.0":
+  "integrity" "sha512-HaccG+/mf5NpHL1mAcLzXed4+gGlO6l7mkBi8vNIo6sTJvLoJjHgvJg12F4cy5CNcRqvPS48++s5tfdSiafn4Q=="
+  "resolved" "https://registry.npmjs.org/activedirectory2/-/activedirectory2-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "abstract-logging" "^2.0.0"
+    "async" "^3.1.0"
+    "ldapjs" "^2.1.0"
+    "merge-options" "^2.0.0"
+
 "anymatch@~3.1.2":
   "integrity" "sha512-P43ePfOAIupkguHUycrc4qJ9kz8ZiuOUijaETwX7THt0Y/GNK7v0aa8rY816xWjZ7rJdA5XdMcpVFTKMq+RvWg=="
   "resolved" "https://registry.npmjs.org/anymatch/-/anymatch-3.1.2.tgz"
@@ -75,7 +85,7 @@
   "resolved" "https://registry.npmjs.org/assert-plus/-/assert-plus-0.1.5.tgz"
   "version" "0.1.5"
 
-"async@>= 0.1.22":
+"async@^3.1.0", "async@>= 0.1.22":
   "integrity" "sha512-TR2mEZFVOj2pLStYxLht7TyfuRzaydfpxr3k9RpHIzMgw7A64dzsdqCxH1WJyQdoe8T10nDXd9wnEigmiuHIZw=="
   "resolved" "https://registry.npmjs.org/async/-/async-3.2.0.tgz"
   "version" "3.2.0"
@@ -462,6 +472,11 @@
   "resolved" "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz"
   "version" "7.0.0"
 
+"is-plain-obj@^2.0.0":
+  "integrity" "sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA=="
+  "resolved" "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-2.1.0.tgz"
+  "version" "2.1.0"
+
 "jsonwebtoken@^8.5.1":
   "integrity" "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w=="
   "resolved" "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz"
@@ -523,7 +538,7 @@
     "ldapjs" "1.0.0"
     "lru-cache" "3.2.0"
 
-"ldapjs@>= 0.7.1":
+"ldapjs@^2.1.0", "ldapjs@>= 0.7.1":
   "integrity" "sha512-9+ekbj97nxRYQMRgEm/HYFhFLWSRKah2PnReUfhfM5f62XBeUSFolB+AQ2Jij5tqowpksTnrdNCZLP6C+V3uag=="
   "resolved" "https://registry.npmjs.org/ldapjs/-/ldapjs-2.2.0.tgz"
   "version" "2.2.0"
@@ -605,6 +620,13 @@
   "integrity" "sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w=="
   "resolved" "https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.1.tgz"
   "version" "1.0.1"
+
+"merge-options@^2.0.0":
+  "integrity" "sha512-S7xYIeWHl2ZUKF7SDeBhGg6rfv5bKxVBdk95s/I7wVF8d+hjLSztJ/B271cnUiF6CAFduEQ5Zn3HYwAjT16DlQ=="
+  "resolved" "https://registry.npmjs.org/merge-options/-/merge-options-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "is-plain-obj" "^2.0.0"
 
 "methods@~1.1.2":
   "integrity" "sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w=="

@@ -9,6 +9,9 @@ dotenv.config();
 let config = {
     url: process.env.LDAP_SERVER, // Endereço do Servidor LDAP / AD
     baseDN: process.env.LDAP_BASEDN,
+    attributes: {
+        user: ['cn','sAMAccountName','sn', 'givenName', 'mail','trfCPF','displayName']
+    }
 }
 
 app = require('express')();
@@ -17,9 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('cors')());
 
-let ActiveDirectory = require('activedirectory');
+let ActiveDirectory = require('activedirectory2');
 
-let ad = new ActiveDirectory(config);
 
 app.get('/', function (req,res){
     res.status(200).send({success:'Tudo OK'});
@@ -27,16 +29,37 @@ app.get('/', function (req,res){
 
 app.post('/authenticate', function (req, res) {
     if(req.body.username && req.body.password) {
+
+        config.username = req.body.username;
+        config.password = req.body.password
+        let ad = new ActiveDirectory(config);
+
         ad.authenticate(req.body.username, req.body.password, function (err, auth) {
             if (err) {
                 console.log('ERROR: ' + JSON.stringify(err));
                 return;
             }
             if (auth) {
+
                 const token = generateAccessToken({username: req.body.username});
 
-                res.json(token);//({token: token});
-                console.log('Authenticated!');
+                //busca demais dados do usuario autenticado
+               /* ad.findUser(config.username, function(err, user) {
+                    if (err) {
+                        console.log('ERROR: ' +JSON.stringify(err));
+                        return;
+                    }
+
+                    if (! user) console.log('User: ' + sAMAccountName + ' not found.');
+                    else {
+                        user.token = token;
+                        res.json(user);
+                    }
+
+                });*/
+
+                res.json(token);
+
             } else {
                 console.log('Authentication failed!');
             }
@@ -68,17 +91,29 @@ app.post('/verify', function (req, res) {
 });
 
 // valida a rquisicao com BEARER Token
-app.get('/rota', authenticateToken, (req, res) => {
-    res.status(200).send({success:'Rota autenticada'});
+/*app.get('/user/:username', authenticateToken, (req, res) => {
+    const {username} = res.params;
+    const data = getUserDetails(username);
+    res.status(200).send({data});
+})*/
+app.get('/user/:username',  (req, res) => {
+    const {username} = req.params;
+    console.log(req.params);
+    const data = getUserDetails(username);
+    const status = data ? 200 : 404;
+
+    console.log(data);
+    res.status(status).send({data});
 })
 
 function generateAccessToken(username) {
     return jwt.sign({username} , process.env.TOKEN, { expiresIn: 1800 });
 }
 
-/*function getUserDetails(req, res, next) {
-    return ad.findUser(req.body.username);
-}*/
+function getUserDetails(username) {
+    data = ad.findUser(username)
+    return data;
+}
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
